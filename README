@@ -1,0 +1,11 @@
+PTSMessaginCell
+
+Copyright 2012 by pontius software GmbH (Switzerland)
+
+The PTSMessaginCell class provides the basic functionalities of a messaging cell as used in the iOS Messaging App or WhatsApp. It can be used like a normal UITableView cell, where you can set all the properties in the 
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+
+method. 
+
+Just plain, and simple. It should be working on the iPhone (3.3 inch & 4inch) and iPad and with all interface-orientations. No need for subclassing or messing around with the UITableView. The code is documented and provided free of charge under terms of the GNU 3.0 License. If you have any additions, or fixed error - feel free to publish them.
