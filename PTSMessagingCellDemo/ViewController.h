@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PTSMessagingCell.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController {
+    UITableView * tableView;
+    
+    NSArray * messages;
+}
+
+@property (nonatomic) IBOutlet UITableView * tableView;
+
+@property (nonatomic) NSArray * messages;
 
 @end

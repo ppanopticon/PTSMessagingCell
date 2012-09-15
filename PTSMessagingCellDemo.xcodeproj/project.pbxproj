@@ -18,6 +18,15 @@
 		B52B22831604E90B00705A8E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B52B22821604E90B00705A8E /* Default-568h@2x.png */; };
 		B52B22861604E90B00705A8E /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B52B22841604E90B00705A8E /* MainStoryboard.storyboard */; };
 		B52B22891604E90B00705A8E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B52B22881604E90B00705A8E /* ViewController.m */; };
+		B52B22931604E96F00705A8E /* PTSMessagingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B52B22921604E96F00705A8E /* PTSMessagingCell.m */; };
+		B52B229A1604EBBB00705A8E /* balloon_read_left.png in Resources */ = {isa = PBXBuildFile; fileRef = B52B22941604EBBA00705A8E /* balloon_read_left.png */; };
+		B52B229B1604EBBB00705A8E /* balloon_read_right.png in Resources */ = {isa = PBXBuildFile; fileRef = B52B22951604EBBA00705A8E /* balloon_read_right.png */; };
+		B52B229C1604EBBB00705A8E /* balloon_selected_left.png in Resources */ = {isa = PBXBuildFile; fileRef = B52B22961604EBBA00705A8E /* balloon_selected_left.png */; };
+		B52B229D1604EBBB00705A8E /* balloon_selected_right.png in Resources */ = {isa = PBXBuildFile; fileRef = B52B22971604EBBA00705A8E /* balloon_selected_right.png */; };
+		B52B229E1604EBBB00705A8E /* balloon_unread_left.png in Resources */ = {isa = PBXBuildFile; fileRef = B52B22981604EBBA00705A8E /* balloon_unread_left.png */; };
+		B52B229F1604EBBB00705A8E /* balloon_unread_right.png in Resources */ = {isa = PBXBuildFile; fileRef = B52B22991604EBBB00705A8E /* balloon_unread_right.png */; };
+		B52B22A21604ED1300705A8E /* person1.png in Resources */ = {isa = PBXBuildFile; fileRef = B52B22A01604ED1300705A8E /* person1.png */; };
+		B52B22A31604ED1300705A8E /* person2.png in Resources */ = {isa = PBXBuildFile; fileRef = B52B22A11604ED1300705A8E /* person2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +46,16 @@
 		B52B22851604E90B00705A8E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		B52B22871604E90B00705A8E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B52B22881604E90B00705A8E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B52B22911604E96F00705A8E /* PTSMessagingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTSMessagingCell.h; sourceTree = "<group>"; };
+		B52B22921604E96F00705A8E /* PTSMessagingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTSMessagingCell.m; sourceTree = "<group>"; };
+		B52B22941604EBBA00705A8E /* balloon_read_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon_read_left.png; sourceTree = "<group>"; };
+		B52B22951604EBBA00705A8E /* balloon_read_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon_read_right.png; sourceTree = "<group>"; };
+		B52B22961604EBBA00705A8E /* balloon_selected_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon_selected_left.png; sourceTree = "<group>"; };
+		B52B22971604EBBA00705A8E /* balloon_selected_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon_selected_right.png; sourceTree = "<group>"; };
+		B52B22981604EBBA00705A8E /* balloon_unread_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon_unread_left.png; sourceTree = "<group>"; };
+		B52B22991604EBBB00705A8E /* balloon_unread_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon_unread_right.png; sourceTree = "<group>"; };
+		B52B22A01604ED1300705A8E /* person1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person1.png; sourceTree = "<group>"; };
+		B52B22A11604ED1300705A8E /* person2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +102,16 @@
 		B52B22721604E90B00705A8E /* PTSMessagingCellDemo */ = {
 			isa = PBXGroup;
 			children = (
+				B52B22A01604ED1300705A8E /* person1.png */,
+				B52B22A11604ED1300705A8E /* person2.png */,
+				B52B22941604EBBA00705A8E /* balloon_read_left.png */,
+				B52B22951604EBBA00705A8E /* balloon_read_right.png */,
+				B52B22961604EBBA00705A8E /* balloon_selected_left.png */,
+				B52B22971604EBBA00705A8E /* balloon_selected_right.png */,
+				B52B22981604EBBA00705A8E /* balloon_unread_left.png */,
+				B52B22991604EBBB00705A8E /* balloon_unread_right.png */,
+				B52B22911604E96F00705A8E /* PTSMessagingCell.h */,
+				B52B22921604E96F00705A8E /* PTSMessagingCell.m */,
 				B52B227B1604E90B00705A8E /* AppDelegate.h */,
 				B52B227C1604E90B00705A8E /* AppDelegate.m */,
 				B52B22841604E90B00705A8E /* MainStoryboard.storyboard */,
@@ -163,6 +192,14 @@
 				B52B22811604E90B00705A8E /* Default@2x.png in Resources */,
 				B52B22831604E90B00705A8E /* Default-568h@2x.png in Resources */,
 				B52B22861604E90B00705A8E /* MainStoryboard.storyboard in Resources */,
+				B52B229A1604EBBB00705A8E /* balloon_read_left.png in Resources */,
+				B52B229B1604EBBB00705A8E /* balloon_read_right.png in Resources */,
+				B52B229C1604EBBB00705A8E /* balloon_selected_left.png in Resources */,
+				B52B229D1604EBBB00705A8E /* balloon_selected_right.png in Resources */,
+				B52B229E1604EBBB00705A8E /* balloon_unread_left.png in Resources */,
+				B52B229F1604EBBB00705A8E /* balloon_unread_right.png in Resources */,
+				B52B22A21604ED1300705A8E /* person1.png in Resources */,
+				B52B22A31604ED1300705A8E /* person2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +213,7 @@
 				B52B22791604E90B00705A8E /* main.m in Sources */,
 				B52B227D1604E90B00705A8E /* AppDelegate.m in Sources */,
 				B52B22891604E90B00705A8E /* ViewController.m in Sources */,
+				B52B22931604E96F00705A8E /* PTSMessagingCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
