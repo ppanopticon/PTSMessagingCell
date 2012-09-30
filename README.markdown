@@ -12,7 +12,7 @@ Ralph Gasser (pontius software GmbH)
 ## Legal
 Copyright 2012 by pontius software GmbH (Switzerland), All rights reserved
 
-The code and its documentation are provided free of charge under the terms of the GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007. If you want to use it for commercial applications, please contact the author.
+The code and its documentation are provided free of charge under the terms of the Creative Commons BY-SA 3.0 license.
 
 ## Description
 The PTSMessagingCell class provides the basic functionalities of a messaging cell as used in the iOS messaging app or WhatsApp. It can be used like a normal UITableView cell, where you can set all the properties in the method:
