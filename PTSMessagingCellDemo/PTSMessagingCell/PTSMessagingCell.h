@@ -1,88 +1,56 @@
-/*
- PTSMessagingCell.h
- 
-Copyright (C) 2012 pontius software GmbH
-
-This program is free software: you can redistribute and/or modify
-it under the terms of the Createive Commons (CC BY-SA 3.0) license
-*/
+//
+//  PTSMessagingCell.h
+//  Purplemoon
+//
+//  *View*
+//
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
-/** \class PTSMessagingCell
-    \brief This class extends a UITableViewCell with a style similar to that of the SMS-App (iOS). It displays a text-message of any size (only limited by the capabilities of UIView), a timestamp (if given) and an avatar-Image (if given). 
+/** @class PTSMessagingCell
+    @brief This class extends a UITableViewCell with a style similar to that of the SMS-App (iOS). It displays a TextMessage of any size (only limited by the capabilities of UIView), a timestamp (if given) and an Avatar-Image (if given). 
  
     The cell will properly respond to orientation-changes and can be displayed on iPhones and iPads. The usage of this class is very simple: Initialize it, using the initMessagingCellWithReuseIdentifier:(NSString*)reuseIdentifier-Method and afterwards set its properties, as you would with a commom UITabelViewCell.
  
     The class also implements behaviour regarding gesture recognizers and Copy/Paste. The PTSMessagingCells are selectable and its content can be copied to the clipboard.
  
     @author Ralph Gasser
-    @date 2011-08-08
-    @version 1.5
-    @copyright Copyright 2012, pontius software GmbH
+    @date 2014-09-24
+    @version 1.8.1
+    @copyright Copyright 2014, pontius software GmbH
  */
 
+
 @interface PTSMessagingCell : UITableViewCell {
-    /*Subview of the MessaginCell, containing the Avatar-Image (if specified). It can be set in the cellForRowAtIndexPath:-Method.*/
-    UIImageView* avatarImageView;
+    /*This is a private subview of the MessagingCell, containing the ballon-graphic. It is not intended to be editable.*/
+    @private UIImageView * balloonView;
     
-    /*Subview of the MessaginCell, containing the timestamp (if specified). It can be set in the cellForRowAtIndexPath:-Method.*/
-    UILabel* timeLabel;
+    @private UILabel * nameLabel;
     
-    /*Subview of the MessagingCell, containing the actual message. It can be set in the cellForRowAtIndexPath:-Method.*/
-    UILabel* messageLabel;
+    @private UILabel * timestampLabel;
+    
+    /*Subview of the ballonView, containing the actual message (if specified). It can be set in the cellForRowAtIndexPath:-Method.*/
+    @private UILabel * messageLabel;
+    
+    /*Subview of the ballonView, containing the Avatar-Image (if specified). It can be set in the cellForRowAtIndexPath:-Method.*/
+    @private UIImageView * avatarImageView;
     
     /*Specifies, if the message of the current cell was received or sent. This influences the way, the cell is rendered.*/
-    BOOL sent;
-    
-    /*This is a private subview of the MessagingCell. It is not intended do be editable.*/
-    @private UIView * messageView;
-    
-    /*This is a private subview of the MessagingCell, containing the ballon-graphic. It is not intended do be editable.*/
-    @private UIImageView * balloonView;
+    @private BOOL sent;
 }
-
-
-@property (nonatomic, readonly) UIView * messageView;
-
-@property (nonatomic, readonly) UILabel * messageLabel;
-
-@property (nonatomic, readonly) UILabel * timeLabel;
-
-@property (nonatomic, readonly) UIImageView * avatarImageView;
 
 @property (nonatomic, readonly) UIImageView * balloonView;
 
-@property (assign) BOOL sent;
+@property (nonatomic, readonly) UILabel * nameLabel;
 
+@property (nonatomic, readonly) UILabel * timestampLabel;
 
-/**Returns the text margin in horizontal direction.
- @return CGFloat containing the horizontal text margin.
- */
-+(CGFloat)textMarginHorizontal;
+@property (nonatomic, readonly) UILabel * messageLabel;
 
-/**Returns the text margin in vertical direction.
-    @return CGFloat containing the vertical text margin.
-*/
-+(CGFloat)textMarginVertical;
+@property (nonatomic, readonly) UIImageView * avatarImageView;
 
-/** Returns the maximum width for a single message. The size depends on the UIInterfaceIdeom (iPhone/iPad). FOR CUSTOMIZATION: To edit the maximum width, edit this method.
- @return CGFloat containing the maximal width.
- */
-+(CGFloat)maxTextWidth;
-
-/** Calculates and returns the size of a frame containing the message, that is given as a parameter.
-    @param message NSString containing the message string.
-    @return CGSize containing the size of the message (w/h).
- */
-+(CGSize)messageSize:(NSString*)message;
-
-/**  Returns the ballon-Image for specified conditions.
-    @param sent Indicates, wheather the message has been sent or received.
-    @param selected Indicates, wheather the cell has been selected.
- FOR CUSTOMIZATION: To edit the image, user your own names in this method.
-*/
-+(UIImage*)balloonImage:(BOOL)sent isSelected:(BOOL)selected;
+@property (nonatomic, getter = isSent) BOOL sent;
 
 /**Initializes the PTSMessagingCell.
     @param reuseIdentifier NSString* containing a reuse Identifier.

@@ -1,55 +1,60 @@
-/*
- PTSMessagingCell.m
- 
- Copyright (C) 2012 pontius software GmbH
- 
- This program is free software: you can redistribute and/or modify
- it under the terms of the Createive Commons (CC BY-SA 3.0) license
-*/
+//
+//  PTSMessagingCell.m
+//  Purplemoon
+//
+//  Created by Ralph Gasser on 08.08.11.
+//  Copyright 2011 pontius software GmbH. All rights reserved.
+//
 
 #import "PTSMessagingCell.h"
 
+static CGFloat textMarginHorizontal = 12.0f;
+static CGFloat textMarginVertical = 5.0f;
+
+static UIImage * bubbleSelectedRightImage;
+static UIImage * bubbleReadRightImage;
+static UIImage * bubbleSelectedLeftImage;
+static UIImage * bubbleReadLeftImage;
+
+#pragma mark Private class body
+
+/**Definition of private methods.*/
+@implementation PTSMessagingCell (Private)
+
+-(void)updateBackground {
+    /**Returns the appropriate image, sepending on the sent and selected state.*/
+    if ([self isSent]) {
+        self.balloonView.image = bubbleReadRightImage;
+    } else {
+        self.balloonView.image = bubbleReadLeftImage;
+    }
+}
+
+-(void)updateSelectedBackground {
+    if ([self isSent]) {
+        self.balloonView.image = bubbleSelectedRightImage;
+    } else {
+        self.balloonView.image = bubbleSelectedLeftImage;
+    }
+}
+
+@end
+
+#pragma mark -
+#pragma mark Public class body
+
 @implementation PTSMessagingCell
-
-static CGFloat textMarginHorizontal = 15.0f;
-static CGFloat textMarginVertical = 7.5f;
-static CGFloat messageTextSize = 14.0;
-
-@synthesize sent, messageLabel, messageView, timeLabel, avatarImageView, balloonView;
+@synthesize sent, nameLabel, timestampLabel, messageLabel, avatarImageView, balloonView;
 
 #pragma mark -
 #pragma mark Static methods
 
-+(CGFloat)textMarginHorizontal {
-    return textMarginHorizontal;
-}
-
-+(CGFloat)textMarginVertical {
-    return textMarginVertical;
-}
-
-+(CGFloat)maxTextWidth {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        return 220.0f;
-    } else {
-        return 400.0f;
-    }
-}
-
-+(CGSize)messageSize:(NSString*)message {
-    return [message sizeWithFont:[UIFont systemFontOfSize:messageTextSize] constrainedToSize:CGSizeMake([PTSMessagingCell maxTextWidth], CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-}
-
-+(UIImage*)balloonImage:(BOOL)sent isSelected:(BOOL)selected {
-    if (sent == YES && selected == YES) {
-        return [[UIImage imageNamed:@"balloon_selected_right"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
-    } else if (sent == YES && selected == NO) {
-        return [[UIImage imageNamed:@"balloon_read_right"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
-    } else if (sent == NO && selected == YES) {
-        return [[UIImage imageNamed:@"balloon_selected_left"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
-    } else {
-        return [[UIImage imageNamed:@"balloon_read_left"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
-    }
++(void)load {
+    /*Initializes the bubble images needed by the class.*/
+    bubbleReadLeftImage = [[UIImage imageNamed:@"bubble_read_left"] resizableImageWithCapInsets:UIEdgeInsetsMake(20.0f, 9.0f, 27.0f, 4.0f) resizingMode:UIImageResizingModeStretch];
+    bubbleSelectedLeftImage = [[UIImage imageNamed:@"bubble_selected_left"] resizableImageWithCapInsets:UIEdgeInsetsMake(20.0f, 9.0f, 27.0f, 4.0f) resizingMode:UIImageResizingModeStretch];
+    bubbleReadRightImage = [[UIImage imageNamed:@"bubble_read_right"] resizableImageWithCapInsets:UIEdgeInsetsMake(20.0f, 4.0f, 27.0f, 9.0f) resizingMode:UIImageResizingModeStretch];
+    bubbleSelectedRightImage = [[UIImage imageNamed:@"bubble_selected_right"] resizableImageWithCapInsets:UIEdgeInsetsMake(20.0f, 4.0f, 27.0f, 9.0f) resizingMode:UIImageResizingModeStretch];
 }
 
 #pragma mark -
@@ -61,36 +66,37 @@ static CGFloat messageTextSize = 14.0;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         /*Now the basic view-lements are initialized...*/
-        messageView = [[UIView alloc] initWithFrame:CGRectZero];
-        messageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        
         balloonView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        
         messageLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        timestampLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         avatarImageView = [[UIImageView alloc] initWithImage:nil];
+        
+        /*Setup rounded corners for avatarImageView.*/
+        [avatarImageView.layer setCornerRadius:4.0f];
+        [avatarImageView setClipsToBounds:YES];
        
-        /*Message-Label*/
+        /*Message-Label Configuration*/
         self.messageLabel.backgroundColor = [UIColor clearColor];
-        self.messageLabel.font = [UIFont systemFontOfSize:messageTextSize];
         self.messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.messageLabel.numberOfLines = 0;
         
-        /*Time-Label*/
-        self.timeLabel.font = [UIFont boldSystemFontOfSize:12.0f];
-        self.timeLabel.textColor = [UIColor darkGrayColor];
-        self.timeLabel.backgroundColor = [UIColor clearColor];
+        /*Configuration of the pre-existing labels*/
+        [[self timestampLabel] setBackgroundColor:[UIColor clearColor]];
+        [[self nameLabel] setBackgroundColor:[UIColor clearColor]];
         
         /*...and adds them to the view.*/
-        [self.messageView addSubview: self.balloonView];
-        [self.messageView addSubview: self.messageLabel];
+        [self.balloonView addSubview:[self nameLabel]];
+        [self.balloonView addSubview:[self timestampLabel]];
+        [self.balloonView addSubview:[self messageLabel]];
+        [self.contentView addSubview:[self avatarImageView]];
+        [self.contentView addSubview:[self balloonView]];
         
-        [self.contentView addSubview: self.timeLabel];
-        [self.contentView addSubview: self.messageView];
-        [self.contentView addSubview: self.avatarImageView];
+        /*Set cell background color to clear color (iOS7).*/
+        [self setBackgroundColor:[UIColor clearColor]];
         
-        /*...and a gesture-recognizer, for LongPressure is added to the view.*/
-        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+        /*Add gesture recognizer for long presses.*/
+        UILongPressGestureRecognizer * recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
         [recognizer setMinimumPressDuration:1.0f];
         [self addGestureRecognizer:recognizer];
     }
@@ -98,101 +104,87 @@ static CGFloat messageTextSize = 14.0;
     return self;
 }
 
-
 #pragma mark -
 #pragma mark Layouting
 
-- (void)layoutSubviews {
-    /*This method layouts the TableViewCell. It calculates the frame for the different subviews, to set the layout according to size and orientation.*/
+-(void)layoutSubviews {
+    /*Setup of the contantView.*/
+    self.contentView.frame = CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height);
+    CGFloat contentWidth = CGRectGetWidth(self.contentView.frame);
+   
+    /*Calculates the size of the message, the profile name and the timestamp. */
+    CGSize textSize = [[[self messageLabel] text] boundingRectWithSize:CGSizeMake(contentWidth - 100.0f, CGFLOAT_MAX)options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[[self messageLabel] font]} context:nil].size;
     
-    /*Calculates the size of the message. */
-    CGSize textSize = [PTSMessagingCell messageSize:self.messageLabel.text];
+    CGSize dateSize = [[[self timestampLabel] text] boundingRectWithSize:CGSizeMake((contentWidth - 100.0f)/2, 20.0f)options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[[self timestampLabel] font]} context:nil].size;
     
-    /*Calculates the size of the timestamp.*/
-    CGSize dateSize = [self.timeLabel.text sizeWithFont:self.timeLabel.font forWidth:[PTSMessagingCell maxTextWidth] lineBreakMode:NSLineBreakByClipping];
+    CGSize nameSize = [[[self nameLabel] text] boundingRectWithSize:CGSizeMake((contentWidth - 100.0f)/2, 20.0f)options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[[self nameLabel] font]} context:nil].size;
     
     /*Initializes the different frames , that need to be calculated.*/
     CGRect ballonViewFrame = CGRectZero;
     CGRect messageLabelFrame = CGRectZero;
     CGRect timeLabelFrame = CGRectZero;
+    CGRect nameLabelFrame = CGRectZero;
     CGRect avatarImageFrame = CGRectZero;
-       
-    if (self.sent == YES) {
-        timeLabelFrame = CGRectMake(self.frame.size.width - dateSize.width - textMarginHorizontal, 0.0f, dateSize.width, dateSize.height);
-        
-        ballonViewFrame = CGRectMake(self.frame.size.width - (textSize.width + 2*textMarginHorizontal), timeLabelFrame.size.height, textSize.width + 2*textMarginHorizontal, textSize.height + 2*textMarginVertical);
-        
-        messageLabelFrame = CGRectMake(self.frame.size.width - (textSize.width + textMarginHorizontal),  ballonViewFrame.origin.y + textMarginVertical, textSize.width, textSize.height);
-        
-        avatarImageFrame = CGRectMake(5.0f, timeLabelFrame.size.height, 50.0f, 50.0f);
-
-    } else {
-        timeLabelFrame = CGRectMake(textMarginHorizontal, 0.0f, dateSize.width, dateSize.height);
-        
-        ballonViewFrame = CGRectMake(0.0f, timeLabelFrame.size.height, textSize.width + 2*textMarginHorizontal, textSize.height + 2*textMarginVertical);
-        
-        messageLabelFrame = CGRectMake(textMarginHorizontal, ballonViewFrame.origin.y + textMarginVertical, textSize.width, textSize.height);
-        
-        
-        avatarImageFrame = CGRectMake(self.frame.size.width - 55.0f, timeLabelFrame.size.height, 50.0f, 50.0f);
-    }
     
-    self.balloonView.image = [PTSMessagingCell balloonImage:self.sent isSelected:self.selected];
+    /*Makes a difference between a sent message and a received message.*/
+    if (self.sent == YES) {
+        avatarImageFrame = CGRectMake(contentWidth - 55.0f, 5.0f, 50.0f, 50.0f);
+        
+        ballonViewFrame = CGRectMake(5.0f, 5.0f, contentWidth - 60.0f, dateSize.height +textSize.height + 4*textMarginVertical);
+        
+        timeLabelFrame = CGRectMake(ballonViewFrame.size.width - dateSize.width - textMarginHorizontal, 5.0, dateSize.width, dateSize.height);
+        
+        nameLabelFrame = CGRectMake(textMarginHorizontal, 5.0f, nameSize.width, nameSize.height);
+               
+        messageLabelFrame = CGRectMake(textMarginHorizontal, 2*textMarginVertical + timeLabelFrame.size.height, textSize.width, textSize.height);
+    } else {
+        avatarImageFrame = CGRectMake(5.0f, 5.0f, 50.0f, 50.0f);
+        
+        ballonViewFrame = CGRectMake(contentWidth - (contentWidth - avatarImageFrame.size.width - 5.0f), 5.0f, contentWidth - 60.0f, dateSize.height + textSize.height + 4*textMarginVertical);
+        
+        timeLabelFrame = CGRectMake(ballonViewFrame.size.width - dateSize.width - textMarginHorizontal, 5.0, dateSize.width, dateSize.height);
+        
+        nameLabelFrame = CGRectMake(textMarginHorizontal, 5.0f, nameSize.width, nameSize.height);
+
+        messageLabelFrame = CGRectMake(textMarginHorizontal, 2*textMarginVertical + timeLabelFrame.size.height, textSize.width, textSize.height);
+    }
     
     /*Sets the pre-initialized frames  for the balloonView and messageView.*/
     self.balloonView.frame = ballonViewFrame;
     self.messageLabel.frame = messageLabelFrame;
     
-    /*If shown (and loaded), sets the frame for the avatarImageView*/
-    if (self.avatarImageView.image != nil) {
-        self.avatarImageView.frame = avatarImageFrame;
-    }
-    
-    /*If there is next for the timeLabel, sets the frame of the timeLabel.*/
-    
-    if (self.timeLabel.text != nil) {
-        self.timeLabel.frame = timeLabelFrame;
-    }
+    /*If shown (and loaded), sets the frame for the avatarImageView and it's border.*/
+    self.avatarImageView.frame = avatarImageFrame;
+    self.timestampLabel.frame = timeLabelFrame;
+    self.nameLabel.frame = nameLabelFrame;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-	/*Selecting a UIMessagingCell will cause its subviews to be re-layouted. This process will not be animated! So handing animated = YES to this method will do nothing.*/
-    [super setSelected:selected animated:NO];
+-(void)setSent:(BOOL)newValue {
+    /*Applies the new value.*/
+    sent = newValue;
     
-    [self setNeedsLayout];
-    
-    /*Furthermore, the cell becomes first responder when selected.*/
-    if (selected == YES) {
-        [self becomeFirstResponder];
-    } else {
-        [self resignFirstResponder];
-    }
-}
-
--(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-
-}
-
--(void)setEditing:(BOOL)editing animated:(BOOL)animated {
-	
+    /*Updates the balloon image background.*/
+    [self updateBackground];
 }
 
 #pragma mark -
 #pragma mark UIGestureRecognizer-Handling
 
-- (void)handleLongPress:(UILongPressGestureRecognizer *)longPressRecognizer {
+-(void)handleLongPress:(UILongPressGestureRecognizer *)longPressRecognizer {
     /*When a LongPress is recognized, the copy-menu will be displayed.*/
-    if (longPressRecognizer.state != UIGestureRecognizerStateBegan) {
-        return;
+    if (longPressRecognizer.state == UIGestureRecognizerStateBegan) {
+        [self updateSelectedBackground];
+    } else {
+        [self updateBackground];
     }
     
     if ([self becomeFirstResponder] == NO) {
         return;
     }
     
+    /*Display UIMenuController.*/
     UIMenuController * menu = [UIMenuController sharedMenuController];
     [menu setTargetRect:self.balloonView.frame inView:self];
-    
     [menu setMenuVisible:YES animated:YES];
 }
 
@@ -200,6 +192,10 @@ static CGFloat messageTextSize = 14.0;
     /*This cell can become first-responder*/
     return YES;
 }
+
+
+#pragma mark -
+#pragma mark Action-Handler
 
 -(BOOL)canPerformAction:(SEL)action withSender:(id)sender{
     /*Allows the copy-Action on this cell.*/
