@@ -7,12 +7,15 @@ The PTSMessagingCell class provides the basic functionalities of a messaging cel
 Ralph Gasser (pontius software GmbH)
 
 ## Requirements
-* Only implemented to work with ARC
+* Only implemented to work with ARC (Automated Reference Counting)
 
 ## Legal
 Copyright 2012 by pontius software GmbH (Switzerland), All rights reserved
 
-The code and its documentation are provided free of charge under the terms of the Creative Commons BY-SA 3.0 license.
+The code and its documentation are provided free of charge under the terms of the Creative Commons BY-SA 3.0 license. 
+
+You are allowed to use this class for any of your projects (be it commercial or open source). If you do so, you are invited to give credits to the author Ralph Gasser (pontius software GmbH, Switzerland). 
+If you alter the class and/or improve upon it, you are kindly asked to share your work under the same terms.
 
 ## Description
 The PTSMessagingCell class provides the basic functionalities of a messaging cell as used in the iOS messaging app or WhatsApp. It can be used like a normal UITableView cell, where you can set all the properties in the method:
@@ -32,5 +35,6 @@ This is not very elegant but I did not come up with a better solution yet.
 The class should be working on the iPhone (3.3 inch & 4inch) and iPad (although I only really tested the iPhones) and with all interface-orientations.
 
 ## To-Do's
+* Implementation for Retain/Release environments.
 * Find a better solution for dynamic sizing.
 * Tweaking.
